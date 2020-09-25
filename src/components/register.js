@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
-import React, { useContext, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import React, { useContext } from "react";
+import { Button, Card, Form, Modal } from "react-bootstrap";
 import * as yup from "yup";
 import { FirebaseContext } from "../utils/firebase";
 
@@ -10,39 +10,27 @@ const FormSchema = yup.object().shape({
   password: yup.string().required(),
   name: yup.string().required(),
   age: yup.number().min(1).required(),
-  triggers: yup.array().of(yup.string().required()),
-  routines: yup.array().of(yup.string().required()),
   diagnosis: yup.string().required(),
 });
 
-export const Register = ({ show, onHide }) => {
+export const Register = () => {
   const firebase = useContext(FirebaseContext);
-  const [triggers, setTriggers] = useState(0);
-  const [routines, setRoutines] = useState(0);
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = ({email, password, name, age, diagnosis, ...history}) => {
     firebase.doRegister(
-      values.email,
-      values.password,
-      values.name,
-      values.age,
-      values.triggers,
-      values.routines,
-      values.diagnosis
+      email,
+      password,
+      name,
+      age,
+      diagnosis,
+      history
     );
   };
 
   return (
     <Formik
       initialValues={{
-        email: "",
-        password: "",
-        name: "",
         age: 1,
-        triggers: [],
-        routines: [],
-        diagnosis: "",
       }}
       validationSchema={FormSchema}
       onSubmit={handleSubmit}>
@@ -73,38 +61,144 @@ export const Register = ({ show, onHide }) => {
                 name="diagnosis"
                 type="text"
                 label="Diagnosis" />
-              {
-                [...Array(triggers).keys()].map(i => (
+              <Card className="mb-3">
+                <Card.Header>Communication Style</Card.Header>
+                <Card.Body>
                   <FormikControl
-                    key={i}
-                    type="text"
-                    label={`Trigger ${i + 1}`}
-                    name={`triggers[${i}]`} />
-                ))
-              }
-              {
-                [...Array(routines).keys()].map(i => (
+                    name="receptive"
+                    as="select"
+                    label="Receptive">
+                    <option>Verbal</option>
+                    <option>Non-verbal</option>
+                    <option>Visual</option>
+                  </FormikControl>
                   <FormikControl
-                    key={i}
+                    name="expressive"
+                    as="select"
+                    label="Expressive">
+                    <option>Verbal</option>
+                    <option>Non-verbal</option>
+                    <option>Visual</option>
+                  </FormikControl>
+                  <FormikControl
+                    name="communicationTool"
                     type="text"
-                    label={`Routine ${i + 1}`}
-                    name={`routine[${i}]`} />
-                ))
-              }
+                    label="Uses a communication tool?" />
+                  <FormikControl
+                    name="yesNo"
+                    type="text"
+                    label="How do they say yes/no?" />
+                  <FormikControl
+                    name="expressPain"
+                    type="text"
+                    label="How do they express pain?" />
+                </Card.Body>
+              </Card>
+              <Card className="mb-3">
+                <Card.Header>Extreme Behaviour Changes</Card.Header>
+                <Card.Body>
+                  <FormikControl
+                    name="stressed"
+                    type="text"
+                    label="How do you know if they are stressed?" />
+                  <FormikControl
+                    name="toAvoid"
+                    type="text"
+                    label="Things to avoid with your child" />
+                  <FormikControl
+                    name="hypersensitive"
+                    type="text"
+                    label="Is your child hypersensitive to certain things?" />
+                  <FormikControl
+                    name="aggression"
+                    type="text"
+                    label="Does your child have a history of agitation/aggression?" />
+                  <FormikControl
+                    name="banging"
+                    type="text"
+                    label="Does your child often exhibit behaviours such as head banging, screaming, rocking, flapping, hand wringing or repetitive vocalisations?" />
+                  <FormikControl
+                    name="comfort"
+                    type="text"
+                    label="What is the best way to comfort your child?" />
+                </Card.Body>
+              </Card>
+              <Card className="mb-3">
+                <Card.Header>Social</Card.Header>
+                <Card.Body>
+                  <FormikControl
+                    name="interactAdults"
+                    type="text"
+                    label="How do they interact with adults?" />
+                  <FormikControl
+                    name="interactAdults"
+                    type="text"
+                    label="How do they interact with other children?" />
+                  <FormikControl
+                    name="interactChildren"
+                    type="text"
+                    label="How do they interact with other children?" />
+                  <FormikControl
+                    name="eyeContact"
+                    type="text"
+                    label="Does your child avoid eye contact or being close to other people?" />
+                  <FormikControl
+                    name="followInstructions"
+                    type="text"
+                    label="Can your child follow instructions?" />
+                  <FormikControl
+                    name="focus"
+                    type="text"
+                    label="How long can your child sit still or focus for?" />
+                </Card.Body>
+              </Card>
+              <FormikControl
+                name="foods"
+                type="text"
+                label="What are your child’s favourite foods or beverages?" />
+              <FormikControl
+                name="toys"
+                type="text"
+                label="What type of toys or activities does your child prefer?" />
+              <FormikControl
+                name="hospital"
+                type="text"
+                label="How does your child behave at the doctor's / hospital?" />
+              <FormikControl
+                name="behaviourManagement"
+                type="text"
+                label="Do you have a behavioural management plan from your doctor?" />
+              <Card>
+                <Card.Header>Medical Profile</Card.Header>
+                <Card.Body>
+                  <FormikControl
+                    name="medicalConditions"
+                    type="text"
+                    label="Does your child have any medical conditions?" />
+                  <FormikControl
+                    name="medications"
+                    type="text"
+                    label="Does your child take any medications?" />
+                  <FormikControl
+                    name="allergies"
+                    type="text"
+                    label="Does your child have any allergies?" />
+                  <FormikControl
+                    name="pastSurgeries"
+                    type="text"
+                    label="Has your child undergone any past surgeries? If so how did they manage?" />
+                  <FormikControl
+                    name="vaccinations"
+                    type="text"
+                    label="Is your child up to date with their vaccinations?" />
+                  <FormikControl
+                    name="familyHistory"
+                    type="text"
+                    label="Does your family have a history of medical conditions?" />
+                </Card.Body>
+              </Card>
             </Modal.Body>
             <Modal.Footer>
-              <Button
-                className="mr-2"
-                disabled={isSubmitting}
-                onClick={() => setTriggers(triggers + 1)}>
-                Add Trigger
-              </Button>
-              <Button
-                className="mr-auto"
-                disabled={isSubmitting}
-                onClick={() => setRoutines(routines + 1)}>
-                Add Routine
-              </Button>
               <Button
                 type="submit"
                 variant="success"

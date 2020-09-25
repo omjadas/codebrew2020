@@ -27,15 +27,14 @@ export class Firebase {
     return this._firestore;
   }
 
-  doRegister(email, password, name, age, triggers, routines, diagnosis) {
+  doRegister(email, password, name, age, diagnosis, history) {
     const create = this.auth.createUserWithEmailAndPassword(email, password);
     const store = this.firestore.collection("users").add({
       email,
       name,
       age,
-      triggers,
-      routines,
       diagnosis,
+      history,
     });
 
     return Promise.all([create, store]);
