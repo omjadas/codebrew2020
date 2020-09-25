@@ -1,6 +1,7 @@
+import bsCustomFileInput from "bs-custom-file-input";
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import * as yup from "yup";
 import { FirebaseContext } from "../utils/firebase";
@@ -16,14 +17,27 @@ const FormSchema = yup.object().shape({
 export const Register = () => {
   const firebase = useContext(FirebaseContext);
 
-  const handleSubmit = ({email, password, name, age, diagnosis, ...history}) => {
+  useEffect(() => {
+    bsCustomFileInput.init()
+  }, [])
+
+  const handleSubmit = ({
+    email,
+    password,
+    name,
+    age,
+    diagnosis,
+    behaviourManagement,
+    ...history
+  }) => {
     firebase.doRegister(
       email,
       password,
       name,
       age,
       diagnosis,
-      history
+      history,
+      behaviourManagement
     );
   };
 
@@ -38,6 +52,7 @@ export const Register = () => {
         ({
           isSubmitting,
           handleSubmit,
+          setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Modal.Body>
@@ -164,10 +179,12 @@ export const Register = () => {
                 name="hospital"
                 type="text"
                 label="How does your child behave at the doctor's / hospital?" />
-              <FormikControl
+              <Form.File
+                className="mb-3"
                 name="behaviourManagement"
-                type="text"
-                label="Do you have a behavioural management plan from your doctor?" />
+                label="Behavioural Management Plan"
+                onChange={(e) => setFieldValue("behaviourManagement", e.currentTarget.files[0])}
+                custom />
               <Card>
                 <Card.Header>Medical Profile</Card.Header>
                 <Card.Body>
