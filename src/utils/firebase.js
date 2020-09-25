@@ -17,6 +17,7 @@ export class Firebase {
 
     this._auth = firebase.auth();
     this._firestore = firebase.firestore();
+    this._storage = firebase.storage();
   }
 
   get auth() {
@@ -25,6 +26,10 @@ export class Firebase {
 
   get firestore() {
     return this._firestore;
+  }
+
+  get storage() {
+    return this._storage;
   }
 
   doRegister(email, password, name, age, diagnosis, history) {
