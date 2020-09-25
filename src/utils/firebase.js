@@ -17,6 +17,7 @@ export class Firebase {
 
     this._auth = firebase.auth();
     this._firestore = firebase.firestore();
+    this._storage = firebase.storage().ref();
   }
 
   get auth() {
@@ -27,18 +28,22 @@ export class Firebase {
     return this._firestore;
   }
 
-  doRegister(email, password, name, age, triggers, routines, diagnosis) {
+  get storage() {
+    return this._storage;
+  }
+
+  doRegister(email, password, name, age, diagnosis, history, behaviourManagement) {
     const create = this.auth.createUserWithEmailAndPassword(email, password);
     const store = this.firestore.collection("users").add({
       email,
       name,
       age,
-      triggers,
-      routines,
       diagnosis,
+      history,
     });
+    const file = this.storage.child(`${email}-behaviour`).put(behaviourManagement);
 
-    return Promise.all([create, store]);
+    return Promise.all([create, store, file]);
   }
 }
 
