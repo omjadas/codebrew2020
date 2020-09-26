@@ -43,7 +43,9 @@ export const Entry = (props) => {
   }, [firebase.firestore, firebase.user]);
 
   const onSubmit = (values) => {
-    firebase.submitEntry(values)
+    var submittedDate = date != "" ? date : new Date().toISOString().substr(0,10)
+    
+    firebase.submitEntry( submittedDate, values)
       .then(() => {
         history.push("/tracker");
       })
@@ -61,7 +63,7 @@ export const Entry = (props) => {
     <Formik
       initialValues={{
         environmentalInfo: data == null ? "" : data.environmentalInfo,
-        otherComments: data == null ? "" : data.otherComments,
+        otherComments: data == null ? "" : (data.otherComments == undefined ? "" : data.otherComments),
         difficultBehaviour: data == null ? "" : data.difficultBehaviour,
         attention: data == null ? "" : data.attention,
         socialInteraction: data == null ? "" : data.socialInteraction,

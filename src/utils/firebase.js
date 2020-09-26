@@ -68,12 +68,20 @@ export class Firebase {
       });
   }
 
-  async submitEntry(values) {
+  async submitEntry(date, values) {
     const user = await this.user;
+
+    console.log(user.email)
+
+    const querySnapshot = await this.firestore.collection("entries").where("time", "==", date).where("user", "==", user.email).get()
+    querySnapshot.forEach((doc)=> {
+      doc.ref.delete();
+    })
+
     return this.firestore
       .collection("entries").add({
         user: user.email,
-        time: new Date().toISOString().substr(0,10),
+        time: date,
         ...values,
       });
   }

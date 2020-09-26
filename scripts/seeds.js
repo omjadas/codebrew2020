@@ -19,6 +19,50 @@ function getRandomSubarray(arr, size) {
   return shuffled.slice(0, size);
 }
 
+function seedData() {
+  const now = new Date();
+
+  let bounds = [1, 3];
+
+  for (var d = new Date(2020, 7, 1); d <= now; d.setDate(d.getDate() + 1)) {
+    for (const email of emails) {
+      const entry = {
+        user: email,
+        environmentalInfo: getRandomSubarray(
+          environments,
+          getRandomInt(1, 5)
+        ).join(", "),
+        time: d.toISOString().slice(0, 10),
+      }
+
+      for (const field of fields) {
+        entry[field] = getRandomInt(...bounds);
+      }
+
+      if (bounds[1] >= 5 && getRandomInt(0, 3) === 0) {
+        bounds = [bounds[0] - 1, bounds[1] - 1]
+      }
+
+      if (bounds[0] <= 2 && getRandomInt(0, 3) === 0) {
+        bounds = [bounds[0] + 1, bounds[1] + 1]
+      }
+
+      console.log(entry);
+      firebase.firestore().collection("entries").add(entry);
+    }
+  }
+}
+
+function deleteDay() {
+  firebase.firestore().collection("entries").where("time", "==", "2020-09-26").where("user", "==", "vishal@hotmail.com").get().then(
+    (querySnapshot) => {
+      querySnapshot.forEach((doc)=> {
+        doc.ref.delete();
+      })
+    }
+  )
+}
+
 const emails = [
   "omja.das@gmail.com",
   "vishal@hotmail.com",
@@ -61,34 +105,5 @@ const config ={
 
 firebase.initializeApp(config);
 
-const now = new Date();
 
-let bounds = [1, 3];
-
-for (var d = new Date(2020, 7, 1); d <= now; d.setDate(d.getDate() + 1)) {
-  for (const email of emails) {
-    const entry = {
-      user: email,
-      environmentalInfo: getRandomSubarray(
-        environments,
-        getRandomInt(1, 5)
-      ).join(", "),
-      time: d.toISOString().slice(0, 10),
-    }
-
-    for (const field of fields) {
-      entry[field] = getRandomInt(...bounds);
-    }
-
-    if (bounds[1] >= 5 && getRandomInt(0, 3) === 0) {
-      bounds = [bounds[0] - 1, bounds[1] - 1]
-    }
-
-    if (bounds[0] <= 2 && getRandomInt(0, 3) === 0) {
-      bounds = [bounds[0] + 1, bounds[1] + 1]
-    }
-
-    console.log(entry);
-    firebase.firestore().collection("entries").add(entry);
-  }
-}
+deleteDay();

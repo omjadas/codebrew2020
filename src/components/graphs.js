@@ -34,18 +34,19 @@ export const Graphs = (props) => {
 
   return (
     <>
-      <Select
-        className="ml-5 mr-5 mb-3"
-        options={selectOptions}
-        value={selected}
-        onChange={option => setSelected(option)} />
-      <h3 className="text-center">Trend Over Time</h3>
+      <br></br>
+      <h3 className="headings">Trends Over Time</h3>
       <XYPlot xType="time" className="ml-3 mr-auto" width={350} height={300}>
         <HorizontalGridLines />
         <VerticalGridLines />
         <XAxis title="X Axis" />
         <LineSeries data={data} />
       </XYPlot>
+      <Select
+        className="ml-5 mr-5 mb-3"
+        options={selectOptions}
+        value={selected}
+        onChange={option => setSelected(option)} />
     </>
   );
 };

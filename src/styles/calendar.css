@@ -2,6 +2,10 @@
     font-size: 7.5px;
 }
 
+.headings {
+    margin-left: 15px;
+}
+
 .react-calendar-heatmap .color-empty { fill: #808080; }
 .react-calendar-heatmap .color-scale-red { fill: #FF6347; }
 .react-calendar-heatmap .color-scale-amber { fill: 	#FFA500; }

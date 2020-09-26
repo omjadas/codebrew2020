@@ -25,8 +25,10 @@ export const Articles = () => {
           </div>
         ))
       }
+      <br></br>
+
       <Link to="/article">
-        <div className="d-flex w-100">
+        <div className="text-center">
           <Button className="ml-auto mb-2 mr-2">
             Create Article
           </Button>
