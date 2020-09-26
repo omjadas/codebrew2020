@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { FirebaseContext } from "../utils/firebase";
 import { Formik } from "formik";
-import { Button, Form, Modal } from "react-bootstrap";
 import { FormikControl } from "formik-react-bootstrap";
+import React, { useContext } from "react";
+import { Button, Dropdown, DropdownButton, Form, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
+import { FirebaseContext } from "../utils/firebase";
 
 function delay(t, v) {
   return new Promise(resolve => {
@@ -32,7 +32,7 @@ export const Login = () => {
       .catch(e => {
         console.error(e);
       });
-  }
+  };
 
   return (
     <Formik
@@ -63,26 +63,21 @@ export const Login = () => {
                 placeholder="Password" />
             </Modal.Body>
 
-            <div className="text-center">
-              <Button type="submit" variant="success" disabled={isSubmitting}>Sign In</Button>
-              <br></br>
-              <br></br>
-              or
-              <br></br>
-              <br></br>
-              <Link to="/register">
-                <Button>
-                  Register as Caregiver
-                </Button>
-              </Link>
-              <br></br>
-              <br></br>
-              <Link to="/docregister">
-                <Button>
-                  Register as Supporting Professional
-                </Button>
-              </Link>
-            </div>
+            <Modal.Footer>
+              <DropdownButton title="Register">
+                <Dropdown.Item>
+                  <Link to="/register" style={{color: "#212529"}}>
+                    As Caregiver
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to="/docregister" style={{color: "#212529"}}>
+                    As Supporting Professional
+                  </Link>
+                </Dropdown.Item>
+              </DropdownButton>
+              <Button className="ml-auto" type="submit" variant="success" disabled={isSubmitting}>Sign In</Button>
+            </Modal.Footer>
           </Form>
         )
       }
