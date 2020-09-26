@@ -33,24 +33,24 @@ export class Firebase {
   }
 
   doRegister(email, password, name, age, diagnosis, history, behaviourManagement) {
-    const create = this.auth.createUserWithEmailAndPassword(email, password);
-    const store = this.firestore.collection("users").add({
-      email,
-      name,
-      age,
-      diagnosis,
-      history,
-    });
-
-    let file;
-
-    if (behaviourManagement !== undefined) {
-      file = this.storage.child(`${email}-behaviour`).put(behaviourManagement);
-    } else {
-      file = Promise.resolve();
-    }
-
-    return Promise.all([create, store, file]);
+    return this.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        return this.firestore.collection("users").add({
+          email,
+          name,
+          age,
+          diagnosis,
+          history,
+        })
+      })
+      .then(() => {
+        if (behaviourManagement !== undefined) {
+          return this.storage
+            .child(`${email}-behaviour`)
+            .put(behaviourManagement);
+        }
+      });
   }
 }
 
