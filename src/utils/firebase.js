@@ -24,6 +24,19 @@ export class Firebase {
     return this._auth;
   }
 
+  get user() {
+    return new Promise((resolve, reject) => {
+       const unsubscribe = this.auth.onAuthStateChanged(user => {
+          unsubscribe();
+          resolve(user);
+       }, reject);
+    });
+  }
+
+  get persistenceSetting() {
+    return firebase.auth.Auth.Persistence.LOCAL;
+  }
+
   get firestore() {
     return this._firestore;
   }
