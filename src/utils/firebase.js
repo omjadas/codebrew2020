@@ -45,6 +45,20 @@ export class Firebase {
     return this._storage;
   }
 
+  async submitArticle(values) {
+    return this.storage.child(values.name).put(values.image)
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(url => {
+        return this.firestore
+          .collection("articles").add({
+            name: values.name,
+            url: values.url,
+            category: values.category.value,
+            image: url,
+          });
+      });
+  }
+
   async submitEntry(values) {
     const user = await this.user;
     return this.firestore

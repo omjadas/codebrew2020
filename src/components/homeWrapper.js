@@ -33,6 +33,11 @@ export const HomeWrapper = (props) => {
         <Dropdown>
           <Dropdown.Toggle as={Profile} />
           <Dropdown.Menu alignRight>
+              <Dropdown.Item>
+            <Link to="/article">
+                Add Article
+            </Link>
+              </Dropdown.Item>
             <Dropdown.Item onClick={onSignOut}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -40,7 +45,7 @@ export const HomeWrapper = (props) => {
 
       <Nav justify variant="tabs" >
         <Nav.Item >
-          <Link className={`nav-link ${location.pathname.includes("newsfeed") ? "active" : ""}`} to="/newsfeed">Home</Link>
+          <Link className={`nav-link ${location.pathname.includes("articles") ? "active" : ""}`} to="/articles">Home</Link>
         </Nav.Item>
         <Nav.Item>
           <Link className={`nav-link ${location.pathname.includes("tracker") || location.pathname.includes("entry") ? "active" : ""}`} to="/tracker">Tracker</Link>
