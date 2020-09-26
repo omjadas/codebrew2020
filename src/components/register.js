@@ -56,8 +56,8 @@ export const Register = ({profileData}) => {
   return (
     <Formik
       initialValues={{
-        age: profileData !== null ? profileData.age : "",
-        email: profileData !== null ? profileData.email : ""
+        age: profileData !== undefined ? profileData.age : "",
+        email: profileData !== undefined ? profileData.email : ""
       }}
       validationSchema={FormSchema}
       onSubmit={handleSubmit}>
