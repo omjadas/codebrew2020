@@ -31,7 +31,6 @@ export class Firebase {
     }
 
     this._user = new Promise((resolve, reject) => {
-      
        const unsubscribe = this.auth.onAuthStateChanged(user => {
 
           unsubscribe();
@@ -84,6 +83,11 @@ export class Firebase {
         time: date,
         ...values,
       });
+  }
+
+  async signOut() {
+    await this.auth.signOut()
+    this._user = null;
   }
 
   doRegister(email, password, name, age, diagnosis, history, behaviourManagement) {

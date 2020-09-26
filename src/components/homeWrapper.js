@@ -22,10 +22,11 @@ export const HomeWrapper = (props) => {
       })
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
+          console.log(doc.data());
           if (doc.data().isDoc) {
-            setIsDoc(true)
+            setIsDoc(true);
           }
-          setLoaded(true)
+          setLoaded(true);
         });
       })
       .catch(e => {

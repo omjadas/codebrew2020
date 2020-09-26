@@ -10,7 +10,7 @@ export const TopBar = ({ isDoctor }) => {
   const history = useHistory();
 
   const onSignOut = () => {
-    firebase.auth
+    firebase
       .signOut()
       .then(() => {
         history.push("/login");
