@@ -1,11 +1,11 @@
-import React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { Calendar } from './components/calendar';
+import React from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Calendar } from "./components/calendar";
 import { HomeWrapper } from "./components/homeWrapper";
-import { Login } from './components/login';
+import { Login } from "./components/login";
 import { PrivateRoute } from "./components/privateRoute";
 import { Entry } from "./components/entry";
-import { Register } from './components/register';
+import { Register } from "./components/register";
 
 const App = () => {
   return (
