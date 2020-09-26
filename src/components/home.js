@@ -1,20 +1,16 @@
 import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Nav } from "react-bootstrap";
-import "../styles/home.css";
+import { Nav, Navbar } from "react-bootstrap";
 
 export const Home = () => {
   return (
     <>
-      <nav className="navbar sticky-top navbar-light bg-light">
-        <a className="navbar-brand" href="/">Project Awesome</a>
-
-        <div className="justify-content-end ">
-          <FontAwesomeIcon icon={faSearch}/>
-          <FontAwesomeIcon icon={faUserCircle}/>
-        </div>
-      </nav>
+      <Navbar bg="light">
+        <Navbar.Brand href="/">Project Awesome</Navbar.Brand>
+        <FontAwesomeIcon className="ml-auto" icon={faSearch}/>
+        <FontAwesomeIcon icon={faUserCircle}/>
+      </Navbar>
 
       <Nav justify variant="tabs" defaultActiveKey="/home">
         <Nav.Item>

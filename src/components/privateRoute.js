@@ -14,6 +14,6 @@ export const PrivateRoute = ({ children, ...rest }) => {
       </Route>
     );
   } else {
-    return <Redirect to={'/login'} />;
+    return <Redirect to="/login" />;
   }
 };
