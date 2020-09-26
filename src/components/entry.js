@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
 import * as yup from "yup";
@@ -24,9 +24,23 @@ export const Entry = (props) => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
   const location = useLocation();
+  const [data, setData] = useState(null);
 
   const date = location.hash.substring(1);
   console.log(date);
+
+  useEffect(() => {
+    firebase.user
+      .then(user => {
+        return firebase.firestore.collection("entries").where("time", "==", date).where("user", "==", user.email).get();
+      })
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          console.log(doc.data())
+          setData(doc.data())
+        });
+      })
+  }, [firebase.firestore, firebase.user]);
 
   const onSubmit = (values) => {
     firebase.submitEntry(values)
@@ -38,10 +52,22 @@ export const Entry = (props) => {
       });
   };
 
+
+  if (date != ""  && data == null) {
+    return <></>
+  }
+
   return (
     <Formik
       initialValues={{
-        environmentalInfo: "",
+        environmentalInfo: data == null ? "" : data.environmentalInfo,
+        otherComments: data == null ? "" : data.otherComments,
+        difficultBehaviour: data == null ? "" : data.difficultBehaviour,
+        attention: data == null ? "" : data.attention,
+        socialInteraction: data == null ? "" : data.socialInteraction,
+        communication: data == null ? "" : data.communication,
+        sleepQuality: data == null ? "" : data.sleepQuality,
+        overallMood: data == null ? "" : data.overallMood,
       }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
@@ -50,6 +76,7 @@ export const Entry = (props) => {
           isSubmitting,
           handleSubmit,
           setFieldValue,
+          values,
         }) => (
           <Form onSubmit={handleSubmit}>
             <Modal.Header>
@@ -63,27 +90,33 @@ export const Entry = (props) => {
               <Question
                 onSelect={(i) => setFieldValue("socialInteraction", i)}
                 question="Social Interaction"
-                info="How well did they get on with friends / family / strangers?" />
+                info="How well did they get on with friends / family / strangers?" 
+                value={values.socialInteraction} />
               <Question
                 onSelect={(i) => setFieldValue("communication", i)}
                 question="Communication"
-                info="How well did they express themselves today? How well did they listen?" />
+                info="How well did they express themselves today? How well did they listen?" 
+                value={values.communication} />
               <Question
                 onSelect={(i) => setFieldValue("difficultBehaviour", i)}
                 question="Difficult Behaviour"
-                info="Was their behaviour disruptive and difficult to manage?" />
+                info="Was their behaviour disruptive and difficult to manage?" 
+                value={values.difficultBehaviour}/>                
               <Question
                 onSelect={(i) => setFieldValue("attention", i)}
                 question="Attention"
-                info="How well did they pay attention?" />
+                info="How well did they pay attention?" 
+                value={values.attention} />
               <Question
                 onSelect={(i) => setFieldValue("sleepQuality", i)}
                 question="Sleep Quality"
-                info="How well did they sleep?" />
+                info="How well did they sleep?"
+                value={values.sleepQuality} />
               <Question
                 onSelect={(i) => setFieldValue("overallMood", i)}
                 question="Overall Mood"
-                info="Overall, did they have a happy day?" />
+                info="Overall, did they have a happy day?"
+                value={values.overallMood} />
               <FormikControl
                 as="textarea"
                 name="otherComments"

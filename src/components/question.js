@@ -1,13 +1,20 @@
 import { faFrown, faLaugh, faMeh, faSmile, faTired } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Overlay, Tooltip } from "react-bootstrap";
 import styles from "../styles/question.module.css";
 
-export const Question = ({ question, info, onSelect }) => {
+export const Question = ({ question, info, onSelect, value }) => {
   const [selected, setSelected] = useState(null);
   const [show, setShow] = useState(false);
   const target = useRef(null);
+
+  useEffect( () => {
+    if (value !== undefined) {
+      setSelected(value)
+    }
+  }, [])
+   
 
   const handleSelect = (index) => {
     setSelected(index);

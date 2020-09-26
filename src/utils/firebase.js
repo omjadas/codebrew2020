@@ -18,6 +18,7 @@ export class Firebase {
     this._auth = firebase.auth();
     this._firestore = firebase.firestore();
     this._storage = firebase.storage().ref();
+    this._user = null;
   }
 
   get auth() {
@@ -25,12 +26,20 @@ export class Firebase {
   }
 
   get user() {
-    return new Promise((resolve, reject) => {
+    if (this._user !== null) {
+      return this._user;
+    }
+
+    this._user = new Promise((resolve, reject) => {
+      
        const unsubscribe = this.auth.onAuthStateChanged(user => {
+
           unsubscribe();
           resolve(user);
        }, reject);
     });
+
+    return this._user;
   }
 
   get persistenceSetting() {
