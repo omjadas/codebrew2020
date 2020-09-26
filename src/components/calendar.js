@@ -61,7 +61,7 @@ export const Calendar = () => {
         setMinDay(minDay);
         setMaxDay(maxDay);
         setLoaded(true);
-        setTodaysHistoryIncluded(resultDays.filter( d => d.date == new Date().toISOString().substr(0,10) ).length > 0)
+        setTodaysHistoryIncluded(resultDays.filter(d => d.date === new Date().toISOString().substr(0,10) ).length > 0)
       })
   }, [firebase.firestore, firebase.user]);
 

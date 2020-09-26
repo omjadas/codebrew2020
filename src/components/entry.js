@@ -20,14 +20,13 @@ const FormSchema = yup.object().shape({
   otherComments: yup.string(),
 });
 
-export const Entry = (props) => {
+export const Entry = () => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
   const location = useLocation();
   const [data, setData] = useState(null);
 
   const date = location.hash.substring(1);
-  console.log(date);
 
   useEffect(() => {
     firebase.user
@@ -43,7 +42,7 @@ export const Entry = (props) => {
           setData(doc.data())
         });
       })
-  }, [firebase.firestore, firebase.user]);
+  }, [firebase.firestore, firebase.user, date]);
 
   const onSubmit = (values) => {
     var submittedDate = date !== "" ? date : new Date().toISOString().substr(0,10)
@@ -58,8 +57,8 @@ export const Entry = (props) => {
   };
 
 
-  if (date != ""  && data == null) {
-    return <></>
+  if (date !== ""  && data === null) {
+    return <></>;
   }
 
   return (
@@ -85,8 +84,8 @@ export const Entry = (props) => {
         }) => (
           <Form onSubmit={handleSubmit}>
             <Modal.Header>
-              <FontAwesomeIcon className="mr-auto" icon={faLongArrowAltLeft} size="lg" onClick={ () => history.goBack() }/>
-              <span className="text-center">Date: {date != "" ? date : new Date().toISOString().substr(0,10)}</span>
+              <FontAwesomeIcon className="mr-auto" icon={faLongArrowAltLeft} size="lg" onClick={() => history.goBack()}/>
+              <span className="text-center">Date: {date !== "" ? date : new Date().toISOString().substr(0,10)}</span>
             </Modal.Header>
             <Modal.Body>
               <FormikControl

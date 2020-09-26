@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { HorizontalGridLines, LineSeries, VerticalGridLines, XAxis, XYPlot, YAxis } from "react-vis";
+import { HorizontalGridLines, LineSeries, VerticalGridLines, XAxis, XYPlot } from "react-vis";
 import "react-vis/dist/style.css";
 
 const selectOptions = [
