@@ -5,8 +5,8 @@ import { Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { FirebaseContext } from "../utils/firebase";
 
-const Profile = React.forwardRef(({ onClick }, ref) => (
-  <FontAwesomeIcon ref={ref} onClick={e => {
+const ProfileIcon = React.forwardRef(({ onClick }, ref) => (
+  <FontAwesomeIcon ref={ref} className="ml-auto" onClick={e => {
     e.preventDefault();
     onClick(e);
   }} icon={faUserCircle} size="lg"/>
@@ -29,9 +29,8 @@ export const HomeWrapper = (props) => {
     <>
       <Navbar bg="info">
         <Navbar.Brand href="/">Project Awesome</Navbar.Brand>
-        <FontAwesomeIcon className="ml-auto mr-3" icon={faSearch} size="lg"/>
         <Dropdown>
-          <Dropdown.Toggle as={Profile} />
+          <Dropdown.Toggle as={ProfileIcon} />
           <Dropdown.Menu alignRight>
             <Dropdown.Item onClick={onSignOut}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
@@ -46,7 +45,7 @@ export const HomeWrapper = (props) => {
           <Link className={`nav-link ${location.pathname.includes("tracker") || location.pathname.includes("entry") ? "active" : ""}`} to="/tracker">Tracker</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link className={`nav-link ${location.pathname.includes("appointments") ? "active" : ""}`} to="/appointments">Appointments</Link>
+          <Link className={`nav-link ${location.pathname.includes("profile") ? "active" : ""}`} to="/profile">Profile</Link>
         </Nav.Item>
       </Nav>
 

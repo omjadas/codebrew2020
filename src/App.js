@@ -3,6 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Calendar } from "./components/calendar";
 import { HomeWrapper } from "./components/homeWrapper";
 import { Login } from "./components/login";
+import { Profile } from "./components/profile";
 import { PrivateRoute } from "./components/privateRoute";
 import { Entry } from "./components/entry";
 import { Register } from "./components/register";
@@ -28,8 +29,8 @@ const App = () => {
             <PrivateRoute exact path="/tracker" >
               <Calendar />
             </PrivateRoute>
-            <PrivateRoute exact path="/appointments" >
-              <Login />
+            <PrivateRoute exact path="/profile" >
+              <Profile />
             </PrivateRoute>
             <PrivateRoute exact path="/entry">
               <Entry />
