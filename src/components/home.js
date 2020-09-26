@@ -18,7 +18,7 @@ export const Home = () => {
           <Link className="nav-link" to="/">Home</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link className="nav-link" to="/">Cal</Link>
+          <Link className="nav-link" to="/questions">Cal</Link>
         </Nav.Item>
         <Nav.Item>
           <Link className="nav-link" to="/">Appointments</Link>

@@ -1,0 +1,10 @@
+.selected {
+  animation-name: change-color;
+  animation-duration: 0.5s;
+  color: #17a2b8;
+}
+
+@keyframes change-color {
+  from {color: #212529;}
+  to {color: #17a2b8;}
+}

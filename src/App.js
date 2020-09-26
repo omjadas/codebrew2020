@@ -4,6 +4,7 @@ import { Home } from "./components/home";
 import { Login } from './components/login';
 import { PrivateRoute } from "./components/privateRoute";
 import { Register } from './components/register';
+import { Questionnaire } from "./components/questionnaire";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <Register />
+          </Route>
+          <Route exact path="/questions">
+            <Questionnaire />
           </Route>
           <PrivateRoute exact path="/" >
             <Home />

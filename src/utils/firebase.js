@@ -8,7 +8,7 @@ const config ={
   projectId: "codebrew-2020-8141c",
   storageBucket: "codebrew-2020-8141c.appspot.com",
   messagingSenderId: "602894421608",
-  appId: "1:602894421608:web:f9a8d137e066808cf8f5dd"
+  appId: "1:602894421608:web:f9a8d137e066808cf8f5dd",
 };
 
 export class Firebase {
@@ -30,6 +30,14 @@ export class Firebase {
 
   get storage() {
     return this._storage;
+  }
+
+  submitEntry(values) {
+    return this.firestore
+      .collection("entries").add({
+        user: this.auth.currentUser.email,
+        ...values,
+      });
   }
 
   doRegister(email, password, name, age, diagnosis, history, behaviourManagement) {
