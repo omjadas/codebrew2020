@@ -33,11 +33,6 @@ export const HomeWrapper = (props) => {
         <Dropdown>
           <Dropdown.Toggle as={Profile} />
           <Dropdown.Menu alignRight>
-              <Dropdown.Item>
-            <Link to="/article">
-                Add Article
-            </Link>
-              </Dropdown.Item>
             <Dropdown.Item onClick={onSignOut}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

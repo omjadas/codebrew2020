@@ -1,0 +1,9 @@
+.article {
+  width: 18rem;
+}
+
+.image {
+  height: 10rem;
+  width: 100%;
+  object-fit: cover;
+}

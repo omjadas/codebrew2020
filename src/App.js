@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { AddArticle } from "./components/addArticle";
+import { Articles } from "./components/articles";
 import { Calendar } from "./components/calendar";
 import { Entry } from "./components/entry";
 import { HomeWrapper } from "./components/homeWrapper";
@@ -24,7 +25,7 @@ const App = () => {
           </Route>
           <HomeWrapper>
             <PrivateRoute exact path="/articles" >
-              <Login />
+              <Articles />
             </PrivateRoute>
             <PrivateRoute exact path="/tracker" >
               <Calendar />
