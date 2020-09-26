@@ -1,10 +1,12 @@
 import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Nav, Navbar, Tabs, Tab } from "react-bootstrap";
+import { useLocation, Link } from "react-router-dom";
 
-export const Home = () => {
+export const HomeWrapper = (props) => {
+  
+
   return (
     <>
       <Navbar bg="info">
@@ -13,17 +15,20 @@ export const Home = () => {
         <FontAwesomeIcon icon={faUserCircle}/>
       </Navbar>
 
-      <Nav justify variant="tabs" defaultActiveKey="/">
-        <Nav.Item>
-          <Link className="nav-link" to="/">Home</Link>
+      <Nav justify variant="tabs" >
+        <Nav.Item >
+          <Link className={`nav-link ${useLocation().pathname.includes("newsfeed") ? "active" : ""}`} to="/home/newsfeed">Home</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link className="nav-link" to="/">Cal</Link>
+          <Link className={`nav-link ${useLocation().pathname.includes("tracker") ? "active" : ""}`} to="/home/tracker">Cal</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link className="nav-link" to="/">Appointments</Link>
+          <Link className={`nav-link ${useLocation().pathname.includes("appointments") ? "active" : ""}`} to="/home/appointments">Appointments</Link>
         </Nav.Item>
       </Nav>
+
+      {props.children}
+
     </>
   );
 }

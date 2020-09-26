@@ -16,16 +16,24 @@ export const Login = () => {
   const history = useHistory();
 
   const handleSubmit = ({ email, password }) => {
-    firebase
+    firebase.auth.setPersistence(firebase.persistenceSetting)
+    .then(function() {
+      firebase
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        history.push("/");
+        history.push("/home/newsfeed");
       })
       .catch(e => {
         console.error(e);
       }
     );
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
   }
 
   return (
