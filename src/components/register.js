@@ -1,7 +1,7 @@
 import bsCustomFileInput from "bs-custom-file-input";
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -18,15 +18,14 @@ const FormSchema = yup.object().shape({
 export const Register = ({ profileData }) => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
-  const [registration, _setRegistration] = useState(profileData === undefined)
 
-  let flatProfileData = undefined;
+  let profileDataState;
 
   if (profileData !== undefined) {
-    flatProfileData = { name: profileData.name, email: profileData.email, age: profileData.age, diagnosis: profileData.diagnosis, ...profileData.history}
+    profileDataState = { name: profileData.name, email: profileData.email, age: profileData.age, diagnosis: profileData.diagnosis, ...profileData.history}
   }
 
-  const [profileDataState, _setProfileData] = useState(flatProfileData)
+  const registration = profileData === undefined;
 
   useEffect(() => {
     bsCustomFileInput.init()
