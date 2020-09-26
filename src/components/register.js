@@ -68,7 +68,7 @@ export const Register = ({profileData}) => {
           setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
-            {registration && <Modal.Header>Register</Modal.Header>}
+            {registration && <Modal.Header><h1>Awesome Profile</h1></Modal.Header>}
             <Modal.Body>
               <FormikControl
                 name="email"
@@ -81,22 +81,33 @@ export const Register = ({profileData}) => {
               <FormikControl
                 name="name"
                 type="text"
-                label="Name" />
+                label="Your child's name:" />
               <FormikControl
                 name="age"
                 type="number"
-                label="Age" />
+                label="Your child's age:"/>
               <FormikControl
                 name="diagnosis"
                 type="text"
-                label="Diagnosis" />
+                label="Date of Diagnosis: " />
+              <FormikControl
+                name="NOK"
+                type="text"
+                label="Name and contact of Parent(s) / Carer(s) / Next of Kin(s) in case of emergency: " />
+              <FormikControl
+                name="GP"
+                type="text"
+                label="Name and contact of GP / other health practitioner(s): " />
+              <h3>
+                Autism History
+              </h3>
               <Card className="mb-3">
-                <Card.Header>Communication Style</Card.Header>
+                <Card.Header><b>Communication Style</b></Card.Header>
                 <Card.Body>
                   <FormikControl
                     name="receptive"
                     as="select"
-                    label="Receptive">
+                    label="What is their receptive communication style?">
                     <option>Verbal</option>
                     <option>Non-verbal</option>
                     <option>Visual</option>
@@ -104,7 +115,7 @@ export const Register = ({profileData}) => {
                   <FormikControl
                     name="expressive"
                     as="select"
-                    label="Expressive">
+                    label="What is their expressive communication style?">
                     <option>Verbal</option>
                     <option>Non-verbal</option>
                     <option>Visual</option>
@@ -112,7 +123,7 @@ export const Register = ({profileData}) => {
                   <FormikControl
                     name="communicationTool"
                     type="text"
-                    label="Uses a communication tool?" />
+                    label="Does your child use a communication tool? (eg PECS) If so, provide details: " />
                   <FormikControl
                     name="yesNo"
                     type="text"
@@ -121,10 +132,14 @@ export const Register = ({profileData}) => {
                     name="expressPain"
                     type="text"
                     label="How do they express pain?" />
+                  <FormikControl
+                    name="tipsComm"
+                    type="text"
+                    label="What are some good approaches for communicating with your child?" />
                 </Card.Body>
               </Card>
               <Card className="mb-3">
-                <Card.Header>Extreme Behaviour Changes</Card.Header>
+                <Card.Header><b>Behaviour</b></Card.Header>
                 <Card.Body>
                   <FormikControl
                     name="stressed"
@@ -133,11 +148,11 @@ export const Register = ({profileData}) => {
                   <FormikControl
                     name="toAvoid"
                     type="text"
-                    label="Things to avoid with your child" />
+                    label="What things trigger or upset your child?" />
                   <FormikControl
                     name="hypersensitive"
                     type="text"
-                    label="Is your child hypersensitive to certain things?" />
+                    label="Does your child have increased or decreased sensitivity to certain stimuli?" />
                   <FormikControl
                     name="aggression"
                     type="text"
@@ -150,23 +165,38 @@ export const Register = ({profileData}) => {
                     name="comfort"
                     type="text"
                     label="What is the best way to comfort your child?" />
+                  <FormikControl
+                  name="hospital"
+                  type="text"
+                  label="How does your child behave at the doctor's / hospital?" />
+                  <p>If they have a Behavioural Management Plan, upload below: </p>
+                  <Form.File
+                   className="mb-3"
+                    name="behaviourManagement"
+                    label="Behavioural Management Plan"
+                    onChange={(e) => setFieldValue("behaviourManagement", e.currentTarget.files[0])}
+                    custom />
+                  <FormikControl
+                  name="foods"
+                  type="text"
+                  label="What are your child’s favourite foods and beverages?" />
+                  <FormikControl
+                    name="toys"
+                    type="text"
+                    label="What type of toys or activities does your child prefer?" />
                 </Card.Body>
               </Card>
               <Card className="mb-3">
-                <Card.Header>Social</Card.Header>
+                <Card.Header><b>Social Interaction</b></Card.Header>
                 <Card.Body>
                   <FormikControl
                     name="interactAdults"
                     type="text"
-                    label="How do they interact with adults?" />
+                    label="How does your child interact with adults?" />
                   <FormikControl
                     name="interactAdults"
                     type="text"
-                    label="How do they interact with other children?" />
-                  <FormikControl
-                    name="interactChildren"
-                    type="text"
-                    label="How do they interact with other children?" />
+                    label="How does your child interact with other children?" />
                   <FormikControl
                     name="eyeContact"
                     type="text"
@@ -181,28 +211,10 @@ export const Register = ({profileData}) => {
                     label="How long can your child sit still or focus for?" />
                 </Card.Body>
               </Card>
+              <h3>
+                Other Medical History
+              </h3>
               <FormikControl
-                name="foods"
-                type="text"
-                label="What are your child’s favourite foods or beverages?" />
-              <FormikControl
-                name="toys"
-                type="text"
-                label="What type of toys or activities does your child prefer?" />
-              <FormikControl
-                name="hospital"
-                type="text"
-                label="How does your child behave at the doctor's / hospital?" />
-              <Form.File
-                className="mb-3"
-                name="behaviourManagement"
-                label="Behavioural Management Plan"
-                onChange={(e) => setFieldValue("behaviourManagement", e.currentTarget.files[0])}
-                custom />
-              <Card>
-                <Card.Header>Medical Profile</Card.Header>
-                <Card.Body>
-                  <FormikControl
                     name="medicalConditions"
                     type="text"
                     label="Does your child have any medical conditions?" />
@@ -217,7 +229,7 @@ export const Register = ({profileData}) => {
                   <FormikControl
                     name="pastSurgeries"
                     type="text"
-                    label="Has your child undergone any past surgeries? If so how did they manage?" />
+                    label="Any previous surgeries or procedures? If so, how did they manage?" />
                   <FormikControl
                     name="vaccinations"
                     type="text"
@@ -226,8 +238,6 @@ export const Register = ({profileData}) => {
                     name="familyHistory"
                     type="text"
                     label="Does your family have a history of medical conditions?" />
-                </Card.Body>
-              </Card>
             </Modal.Body>
             { registration && <Modal.Footer>
               <Link className="mr-auto" to="/login">
