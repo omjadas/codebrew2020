@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "../utils/firebase";
 import "../styles/profile.css";
+import { Register } from "./register";
 
 export const Profile = (props) => {
     const firebase = useContext(FirebaseContext);
@@ -26,11 +27,6 @@ export const Profile = (props) => {
     }
 
     return (
-        <>
-            <h1 className="profile-name">{userData.name}</h1>
-
-            <p>Diagnosis: {userData.diagnosis}</p>
-            <p>Banging: {userData.history.banging}</p>
-        </>
+        <Register profileData={userData} />
     )
 }

@@ -1,7 +1,7 @@
 import bsCustomFileInput from "bs-custom-file-input";
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -15,9 +15,12 @@ const FormSchema = yup.object().shape({
   diagnosis: yup.string().required(),
 });
 
-export const Register = () => {
+export const Register = ({profileData}) => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
+  const [registration, setRegistration] = useState(profileData === undefined)
+  const [profileDataState, setProfileData] = useState(profileData)
+
 
   useEffect(() => {
     bsCustomFileInput.init()
@@ -53,7 +56,8 @@ export const Register = () => {
   return (
     <Formik
       initialValues={{
-        age: 1,
+        age: profileData !== null ? profileData.age : "",
+        email: profileData !== null ? profileData.email : ""
       }}
       validationSchema={FormSchema}
       onSubmit={handleSubmit}>
@@ -64,16 +68,16 @@ export const Register = () => {
           setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <Modal.Header>Register</Modal.Header>
+            {registration && <Modal.Header>Register</Modal.Header>}
             <Modal.Body>
               <FormikControl
                 name="email"
                 type="email"
-                label="Email" />
-              <FormikControl
+                label="Email" /> 
+              { registration && <FormikControl
                 name="password"
                 type="password"
-                label="Password" />
+                label="Password" /> }
               <FormikControl
                 name="name"
                 type="text"
@@ -225,7 +229,7 @@ export const Register = () => {
                 </Card.Body>
               </Card>
             </Modal.Body>
-            <Modal.Footer>
+            { registration && <Modal.Footer>
               <Link className="mr-auto" to="/login">
                 <Button>Sign In</Button>
               </Link>
@@ -235,7 +239,7 @@ export const Register = () => {
                 disabled={isSubmitting}>
                 Register
               </Button>
-            </Modal.Footer>
+            </Modal.Footer> }
           </Form>
         )
       }
