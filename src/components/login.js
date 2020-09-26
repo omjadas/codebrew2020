@@ -26,8 +26,6 @@ export const Login = () => {
         console.error(e);
       }
     );
-
-    console.log(firebase.auth.currentUser)
   }
 
   return (
