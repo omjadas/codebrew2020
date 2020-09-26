@@ -1,18 +1,41 @@
 import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { Dropdown, Nav, Navbar } from "react-bootstrap";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { FirebaseContext } from "../utils/firebase";
+
+const Profile = React.forwardRef(({ onClick }, ref) => (
+  <FontAwesomeIcon ref={ref} onClick={e => {
+    e.preventDefault();
+    onClick(e);
+  }} icon={faUserCircle} size="lg"/>
+));
 
 export const HomeWrapper = (props) => {
+  const firebase = useContext(FirebaseContext);
   const location = useLocation();
+  const history = useHistory();
+
+  const onSignOut = () => {
+    firebase.auth
+      .signOut()
+      .then(() => {
+        history.push("/login");
+      });
+  }
 
   return (
     <>
       <Navbar bg="info">
         <Navbar.Brand href="/">Project Awesome</Navbar.Brand>
         <FontAwesomeIcon className="ml-auto mr-3" icon={faSearch} size="lg"/>
-        <FontAwesomeIcon icon={faUserCircle} size="lg"/>
+        <Dropdown>
+          <Dropdown.Toggle as={Profile} />
+          <Dropdown.Menu alignRight>
+            <Dropdown.Item onClick={onSignOut}>Sign Out</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </Navbar>
 
       <Nav justify variant="tabs" >
