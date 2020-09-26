@@ -49,6 +49,7 @@ export const Login = () => {
         }) => (
           <Form onSubmit={handleSubmit}>
             <Modal.Header>Project Awesome</Modal.Header>
+            <img src='/ProjectAwesome.png'></img>
             <Modal.Body>
               <FormikControl
                 name="email"
