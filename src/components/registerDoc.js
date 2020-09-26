@@ -1,8 +1,8 @@
 import bsCustomFileInput from "bs-custom-file-input";
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
-import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, Form, Modal } from "react-bootstrap";
+import React, { useContext, useEffect } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { FirebaseContext } from "../utils/firebase";
 
@@ -12,7 +12,7 @@ export const RegisterDoc = () => {
 
   useEffect(() => {
     bsCustomFileInput.init()
-  }, [])
+  }, []);
 
   const handleSubmit = ({
     email,
@@ -50,11 +50,11 @@ export const RegisterDoc = () => {
               <FormikControl
                 name="email"
                 type="email"
-                label="Email" /> 
+                label="Email" />
               <FormikControl
                 name="password"
                 type="password"
-                label="Password" /> 
+                label="Password" />
               <FormikControl
                 name="name"
                 type="text"
@@ -74,10 +74,10 @@ export const RegisterDoc = () => {
                 disabled={isSubmitting}>
                 Register
               </Button>
-            </Modal.Footer> 
+            </Modal.Footer>
           </Form>
         )
       }
     </Formik>
   );
-}
+};

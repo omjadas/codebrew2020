@@ -15,21 +15,22 @@ const FormSchema = yup.object().shape({
   diagnosis: yup.string().required(),
 });
 
-export const Register = ({profileData}) => {
+export const Register = ({ profileData }) => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
-  const [registration, setRegistration] = useState(profileData === undefined)
+  const [registration, _setRegistration] = useState(profileData === undefined)
 
   let flatProfileData = undefined;
+
   if (profileData !== undefined) {
     flatProfileData = { name: profileData.name, email: profileData.email, age: profileData.age, diagnosis: profileData.diagnosis, ...profileData.history}
-  } 
+  }
 
-  const [profileDataState, setProfileData] = useState(flatProfileData)
+  const [profileDataState, _setProfileData] = useState(flatProfileData)
 
   useEffect(() => {
     bsCustomFileInput.init()
-  }, [])
+  }, []);
 
   const handleSubmit = ({
     email,
@@ -77,7 +78,7 @@ export const Register = ({profileData}) => {
               <FormikControl
                 name="email"
                 type="email"
-                label="Email" /> 
+                label="Email" />
               { registration && <FormikControl
                 name="password"
                 type="password"

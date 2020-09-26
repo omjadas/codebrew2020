@@ -9,17 +9,16 @@ export const Question = ({ question, info, onSelect, value }) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
-  useEffect( () => {
+  useEffect(() => {
     if (value !== undefined) {
       setSelected(value)
     }
-  }, [])
-   
+  }, [value])
 
   const handleSelect = (index) => {
     setSelected(index);
     onSelect(index);
-  }
+  };
 
   return (
     <Form.Group>
@@ -32,11 +31,11 @@ export const Question = ({ question, info, onSelect, value }) => {
         )}
       </Overlay>
       <div className="d-flex mt-2 justify-content-around">
-        <FontAwesomeIcon className={selected === 1 ? styles.selected : ""} onClick={() => handleSelect(1)} icon={faTired} size="lg"/>
-        <FontAwesomeIcon className={selected === 2 ? styles.selected : ""} onClick={() => handleSelect(2)} icon={faFrown} size="lg"/>
-        <FontAwesomeIcon className={selected === 3 ? styles.selected : ""} onClick={() => handleSelect(3)} icon={faMeh} size="lg"/>
-        <FontAwesomeIcon className={selected === 4 ? styles.selected : ""} onClick={() => handleSelect(4)} icon={faSmile} size="lg"/>
-        <FontAwesomeIcon className={selected === 5 ? styles.selected : ""} onClick={() => handleSelect(5)} icon={faLaugh} size="lg"/>
+        <FontAwesomeIcon className={selected === 1 ? styles.selected : ""} onClick={() => handleSelect(1)} icon={faTired} size="lg" />
+        <FontAwesomeIcon className={selected === 2 ? styles.selected : ""} onClick={() => handleSelect(2)} icon={faFrown} size="lg" />
+        <FontAwesomeIcon className={selected === 3 ? styles.selected : ""} onClick={() => handleSelect(3)} icon={faMeh} size="lg" />
+        <FontAwesomeIcon className={selected === 4 ? styles.selected : ""} onClick={() => handleSelect(4)} icon={faSmile} size="lg" />
+        <FontAwesomeIcon className={selected === 5 ? styles.selected : ""} onClick={() => handleSelect(5)} icon={faLaugh} size="lg" />
       </div>
     </Form.Group>
   );

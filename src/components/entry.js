@@ -46,8 +46,8 @@ export const Entry = (props) => {
   }, [firebase.firestore, firebase.user]);
 
   const onSubmit = (values) => {
-    var submittedDate = date != "" ? date : new Date().toISOString().substr(0,10)
-    
+    var submittedDate = date !== "" ? date : new Date().toISOString().substr(0,10)
+
     firebase.submitEntry( submittedDate, values)
       .then(() => {
         history.push("/tracker");
@@ -66,7 +66,7 @@ export const Entry = (props) => {
     <Formik
       initialValues={{
         environmentalInfo: data == null ? "" : data.environmentalInfo,
-        otherComments: data == null ? "" : (data.otherComments == undefined ? "" : data.otherComments),
+        otherComments: data == null ? "" : (data.otherComments === undefined ? "" : data.otherComments),
         difficultBehaviour: data == null ? "" : data.difficultBehaviour,
         attention: data == null ? "" : data.attention,
         socialInteraction: data == null ? "" : data.socialInteraction,
@@ -96,22 +96,22 @@ export const Entry = (props) => {
               <Question
                 onSelect={(i) => setFieldValue("socialInteraction", i)}
                 question="Social Interaction"
-                info="How well did they get on with friends / family / strangers?" 
+                info="How well did they get on with friends / family / strangers?"
                 value={values.socialInteraction} />
               <Question
                 onSelect={(i) => setFieldValue("communication", i)}
                 question="Communication"
-                info="How well did they express themselves today? How well did they listen?" 
+                info="How well did they express themselves today? How well did they listen?"
                 value={values.communication} />
               <Question
                 onSelect={(i) => setFieldValue("difficultBehaviour", i)}
                 question="Difficult Behaviour"
-                info="Was their behaviour disruptive and difficult to manage?" 
-                value={values.difficultBehaviour}/>                
+                info="Was their behaviour disruptive and difficult to manage?"
+                value={values.difficultBehaviour}/>
               <Question
                 onSelect={(i) => setFieldValue("attention", i)}
                 question="Attention"
-                info="How well did they pay attention?" 
+                info="How well did they pay attention?"
                 value={values.attention} />
               <Question
                 onSelect={(i) => setFieldValue("sleepQuality", i)}

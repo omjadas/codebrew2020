@@ -1,13 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Dropdown, Nav, Navbar } from "react-bootstrap";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { FirebaseContext } from "../utils/firebase";
-import {TopBar} from "./topbar.js"
+import { TopBar } from "./topbar";
 
 export const HomeWrapper = (props) => {
   const firebase = useContext(FirebaseContext);
   const location = useLocation();
-  const history = useHistory();
   const [isDoc, setIsDoc] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -17,7 +16,6 @@ export const HomeWrapper = (props) => {
         return firebase.firestore.collection("users").where("email", "==", user.email).get();
       })
       .then(querySnapshot => {
-        
         querySnapshot.forEach(doc => {
           if (doc.data().isDoc) {
             setIsDoc(true)

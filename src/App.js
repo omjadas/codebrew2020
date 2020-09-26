@@ -30,7 +30,7 @@ const App = () => {
             <RegisterDoc />
           </Route>
           <PrivateRoute exact path="/patients" >
-              <Patients />
+            <Patients />
           </PrivateRoute>
           <HomeWrapper>
             <PrivateRoute exact path="/articles" >

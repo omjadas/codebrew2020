@@ -26,7 +26,6 @@ export const Calendar = () => {
         return firebase.firestore.collection("users").where("email", "==", email).get();
       })
       .then(querySnapshot => {
-        
         querySnapshot.forEach(doc => {
           setName(doc.data().name)
         });
@@ -42,11 +41,11 @@ export const Calendar = () => {
         let resultDays = [];
         let minDay = "9";
         let maxDay = "0";
-        
+
         querySnapshot.forEach(doc => {
           const dateString = doc.data().time;
 
-          if (dateString == "") return;
+          if (dateString === "") return;
 
           resultDays.push({
             data: doc.data(),
@@ -95,7 +94,7 @@ export const Calendar = () => {
           }}
         />
       </div>
-        
+
       {loaded && !todaysHistoryIncluded && <Link to="/entry">
         <div className="text-center">
           <Button className="ml-auto mb-2 mr-2">

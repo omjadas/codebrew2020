@@ -6,6 +6,12 @@ import { FormikControl } from "formik-react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 
+function delay(t, v) {
+  return new Promise(resolve => {
+      setTimeout(resolve.bind(null, v), t)
+  });
+}
+
 const FormSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required(),
@@ -15,18 +21,12 @@ export const Login = () => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
 
-  function delay(t, v) {
-    return new Promise(function(resolve) { 
-        setTimeout(resolve.bind(null, v), t)
-    });
-  }
-
   const handleSubmit = ({ email, password }) => {
     localStorage.removeItem('userEmail');
 
     firebase.auth.signInWithEmailAndPassword(email, password)
-      .then( () => delay(150) ) 
-      .then( () => {
+      .then(() => delay(150))
+      .then(() => {
         history.push("/articles");
       })
       .catch(e => {
@@ -62,7 +62,7 @@ export const Login = () => {
                 label="Password"
                 placeholder="Password" />
             </Modal.Body>
-            
+
             <div className="text-center">
               <Button type="submit" variant="success" disabled={isSubmitting}>Sign In</Button>
               <br></br>
@@ -83,8 +83,6 @@ export const Login = () => {
                 </Button>
               </Link>
             </div>
-              
-            
           </Form>
         )
       }
