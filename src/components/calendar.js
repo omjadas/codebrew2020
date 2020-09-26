@@ -1,6 +1,7 @@
 import React from "react";
 
-export const Calendar = (props) => { 
-
-    return (<></>)
-}
+export const Calendar = (props) => {
+  return (
+    <></>
+  );
+};

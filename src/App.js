@@ -1,19 +1,20 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Home, HomeWrapper } from "./components/home";
-import { Login } from './components/login';
+import React from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { Calendar } from "./components/calendar";
+import { HomeWrapper } from "./components/homeWrapper";
+import { Login } from "./components/login";
 import { PrivateRoute } from "./components/privateRoute";
-import { Register } from './components/register';
-import { Calendar } from './components/calendar';
+import { Entry } from "./components/entry";
+import { Register } from "./components/register";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-                <Redirect to="/home/newsfeed" />
-          </Route> 
+            <Redirect to="/newsfeed" />
+          </Route>
           <Route exact path="/login">
             <Login />
           </Route>
@@ -21,16 +22,19 @@ function App() {
             <Register />
           </Route>
           <HomeWrapper>
-            <PrivateRoute exact path="/home/newsfeed" >
+            <PrivateRoute exact path="/newsfeed" >
               <Login />
             </PrivateRoute>
-            <PrivateRoute exact path="/home/tracker" >
+            <PrivateRoute exact path="/tracker" >
               <Calendar />
             </PrivateRoute>
-            <PrivateRoute exact path="/home/appointments" >
+            <PrivateRoute exact path="/appointments" >
               <Login />
             </PrivateRoute>
-          </HomeWrapper>         
+            <PrivateRoute exact path="/entry">
+              <Entry />
+            </PrivateRoute>
+          </HomeWrapper>
         </Switch>
       </BrowserRouter>
     </div>
