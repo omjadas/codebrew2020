@@ -11,8 +11,8 @@ export const HomeWrapper = (props) => {
     <>
       <Navbar bg="info">
         <Navbar.Brand href="/">Project Awesome</Navbar.Brand>
-        <FontAwesomeIcon className="ml-auto" icon={faSearch}/>
-        <FontAwesomeIcon icon={faUserCircle}/>
+        <FontAwesomeIcon className="ml-auto mr-3" icon={faSearch} size="lg"/>
+        <FontAwesomeIcon icon={faUserCircle} size="lg"/>
       </Navbar>
 
       <Nav justify variant="tabs" >

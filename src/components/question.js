@@ -1,11 +1,13 @@
 import { faFrown, faLaugh, faMeh, faSmile, faTired } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Form, Overlay, Tooltip } from "react-bootstrap";
 import styles from "../styles/question.module.css";
 
 export const Question = ({ question, info, onSelect }) => {
   const [selected, setSelected] = useState(null);
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
 
   const handleSelect = (index) => {
     setSelected(index);
@@ -14,7 +16,14 @@ export const Question = ({ question, info, onSelect }) => {
 
   return (
     <Form.Group>
-      <Form.Label>{question}</Form.Label>
+      <Form.Label ref={target} onClick={() => setShow(!show)}>{question}</Form.Label>
+      <Overlay target={target.current} show={show} placement="right">
+        {(props) => (
+          <Tooltip {...props}>
+            {info}
+          </Tooltip>
+        )}
+      </Overlay>
       <div className="d-flex mt-2 justify-content-around">
         <FontAwesomeIcon className={selected === 1 ? styles.selected : ""} onClick={() => handleSelect(1)} icon={faTired} size="lg"/>
         <FontAwesomeIcon className={selected === 2 ? styles.selected : ""} onClick={() => handleSelect(2)} icon={faFrown} size="lg"/>

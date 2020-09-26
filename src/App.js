@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Home, HomeWrapper } from "./components/home";
+import React from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Calendar } from './components/calendar';
+import { HomeWrapper } from "./components/homeWrapper";
 import { Login } from './components/login';
 import { PrivateRoute } from "./components/privateRoute";
-import { Register } from './components/register';
 import { Questionnaire } from "./components/questionnaire";
-import { Calendar } from './components/calendar';
+import { Register } from './components/register';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,9 +21,6 @@ function App() {
           <Route exact path="/register">
             <Register />
           </Route>
-          <PrivateRoute exact path="/" >
-            <Home />
-          </PrivateRoute>
           <HomeWrapper>
             <PrivateRoute exact path="/newsfeed" >
               <Login />
