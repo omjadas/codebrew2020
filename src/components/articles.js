@@ -11,7 +11,6 @@ const categories = [
   "health",
   "family",
   "support",
-  "books",
   "contact",
 ];
 

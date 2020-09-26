@@ -1,46 +1,48 @@
-import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Dropdown, Nav, Navbar } from "react-bootstrap";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { FirebaseContext } from "../utils/firebase";
-
-const ProfileIcon = React.forwardRef(({ onClick }, ref) => (
-  <FontAwesomeIcon ref={ref} className="ml-auto" onClick={e => {
-    e.preventDefault();
-    onClick(e);
-  }} icon={faUserCircle} size="lg"/>
-));
+import {TopBar} from "./topbar.js"
 
 export const HomeWrapper = (props) => {
   const firebase = useContext(FirebaseContext);
   const location = useLocation();
   const history = useHistory();
+  const [isDoc, setIsDoc] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-  const onSignOut = () => {
-    firebase.auth
-      .signOut()
-      .then(() => {
-        history.push("/login");
-      });
+  useEffect(() => {
+    firebase.user
+      .then(user => {
+        return firebase.firestore.collection("users").where("email", "==", user.email).get();
+      })
+      .then(querySnapshot => {
+        
+        querySnapshot.forEach(doc => {
+          if (doc.data().isDoc) {
+            setIsDoc(true)
+          }
+          setLoaded(true)
+        });
+      })
+  }, [firebase.firestore, firebase.user]);
+
+  if (!loaded) {
+    return (<></>)
+  }
+
+  if (location.pathname.includes("articles") && isDoc) {
+   return( <Redirect to="/patients" /> )
   }
 
   return (
     <>
-      <Navbar bg="info">
-        <Navbar.Brand href="/">Project Awesome</Navbar.Brand>
-        <Dropdown>
-          <Dropdown.Toggle as={ProfileIcon} />
-          <Dropdown.Menu alignRight>
-            <Dropdown.Item onClick={onSignOut}>Sign Out</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Navbar>
+      <TopBar isDoctor={isDoc}/>
 
       <Nav justify variant="tabs" >
-        <Nav.Item >
+        {!isDoc && <Nav.Item >
           <Link className={`nav-link ${location.pathname.includes("articles") ? "active" : ""}`} to="/articles">Home</Link>
-        </Nav.Item>
+        </Nav.Item>}
         <Nav.Item>
           <Link className={`nav-link ${location.pathname.includes("tracker") || location.pathname.includes("entry") ? "active" : ""}`} to="/tracker">Tracker</Link>
         </Nav.Item>

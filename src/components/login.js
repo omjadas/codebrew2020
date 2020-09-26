@@ -15,12 +15,18 @@ export const Login = () => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
 
+  function delay(t, v) {
+    return new Promise(function(resolve) { 
+        setTimeout(resolve.bind(null, v), t)
+    });
+  }
+
   const handleSubmit = ({ email, password }) => {
-    firebase.auth.setPersistence(firebase.persistenceSetting)
-      .then(() => {
-        return firebase.auth.signInWithEmailAndPassword(email, password)
-      })
-      .then(() => {
+    localStorage.removeItem('userEmail');
+
+    firebase.auth.signInWithEmailAndPassword(email, password)
+      .then( () => delay(150) ) 
+      .then( () => {
         history.push("/articles");
       })
       .catch(e => {
@@ -42,7 +48,7 @@ export const Login = () => {
           handleSubmit,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <Modal.Header>Sign In</Modal.Header>
+            <Modal.Header>Project Awesome</Modal.Header>
             <Modal.Body>
               <FormikControl
                 name="email"
@@ -56,14 +62,29 @@ export const Login = () => {
                 label="Password"
                 placeholder="Password" />
             </Modal.Body>
-            <Modal.Footer>
-              <Link className="mr-auto" to="/register">
+            
+            <div className="text-center">
+              <Button type="submit" variant="success" disabled={isSubmitting}>Sign In</Button>
+              <br></br>
+              <br></br>
+              or
+              <br></br>
+              <br></br>
+              <Link to="/register">
                 <Button>
-                  Register
+                  Register as Caregiver
                 </Button>
               </Link>
-              <Button type="submit" variant="success" disabled={isSubmitting}>Sign In</Button>
-            </Modal.Footer>
+              <br></br>
+              <br></br>
+              <Link to="/docregister">
+                <Button>
+                  Register as Supporting Professional
+                </Button>
+              </Link>
+            </div>
+              
+            
           </Form>
         )
       }

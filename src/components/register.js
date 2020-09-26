@@ -19,8 +19,13 @@ export const Register = ({profileData}) => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
   const [registration, setRegistration] = useState(profileData === undefined)
-  const [profileDataState, setProfileData] = useState(profileData)
 
+  let flatProfileData = undefined;
+  if (profileData !== undefined) {
+    flatProfileData = { name: profileData.name, email: profileData.email, age: profileData.age, diagnosis: profileData.diagnosis, ...profileData.history}
+  } 
+
+  const [profileDataState, setProfileData] = useState(flatProfileData)
 
   useEffect(() => {
     bsCustomFileInput.init()
@@ -56,8 +61,7 @@ export const Register = ({profileData}) => {
   return (
     <Formik
       initialValues={{
-        age: profileData !== undefined ? profileData.age : "",
-        email: profileData !== undefined ? profileData.email : ""
+        ...profileDataState
       }}
       validationSchema={FormSchema}
       onSubmit={handleSubmit}>
@@ -194,7 +198,7 @@ export const Register = ({profileData}) => {
                     type="text"
                     label="How does your child interact with adults?" />
                   <FormikControl
-                    name="interactAdults"
+                    name="interactChildren"
                     type="text"
                     label="How does your child interact with other children?" />
                   <FormikControl

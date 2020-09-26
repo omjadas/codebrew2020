@@ -13,12 +13,30 @@ export const Calendar = () => {
   const [days, setDays] = useState([]);
   const [minDay, setMinDay] = useState("2020-01-01");
   const [maxDay, setMaxDay] = useState("2020-01-01");
+  const [name, setName] = useState("");
   const history = useHistory();
 
   useEffect(() => {
+    let localStorageResult = localStorage.getItem("userEmail");
+
     firebase.user
       .then(user => {
-        return firebase.firestore.collection("entries").where("user", "==", user.email).get();
+        let email  = localStorageResult === null ? user.email : localStorageResult;
+
+        return firebase.firestore.collection("users").where("email", "==", email).get();
+      })
+      .then(querySnapshot => {
+        
+        querySnapshot.forEach(doc => {
+          setName(doc.data().name)
+        });
+      })
+
+    firebase.user
+      .then(user => {
+        let email  = localStorageResult === null ? user.email : localStorageResult;
+
+        return firebase.firestore.collection("entries").where("user", "==", email).get();
       })
       .then(querySnapshot => {
         let resultDays = [];
@@ -50,7 +68,7 @@ export const Calendar = () => {
 
   return (
     <>
-      <h3 className="headings mt-3">History</h3>
+      <h3 className="headings mt-3">History for {name}</h3>
 
       <div className="ml-3 mr-0 mt-3 mb-3">
         <CalendarHeatmap

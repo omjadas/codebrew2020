@@ -32,7 +32,10 @@ export const Entry = (props) => {
   useEffect(() => {
     firebase.user
       .then(user => {
-        return firebase.firestore.collection("entries").where("time", "==", date).where("user", "==", user.email).get();
+        let localStorageResult = localStorage.getItem("userEmail");
+        let email  = localStorageResult === null ? user.email : localStorageResult;
+
+        return firebase.firestore.collection("entries").where("time", "==", date).where("user", "==", email).get();
       })
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -83,6 +86,7 @@ export const Entry = (props) => {
           <Form onSubmit={handleSubmit}>
             <Modal.Header>
               <FontAwesomeIcon className="mr-auto" icon={faLongArrowAltLeft} size="lg" onClick={ () => history.goBack() }/>
+              <span className="text-center">Date: {date != "" ? date : new Date().toISOString().substr(0,10)}</span>
             </Modal.Header>
             <Modal.Body>
               <FormikControl

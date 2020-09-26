@@ -10,9 +10,10 @@ export const Profile = (props) => {
     useEffect(() => {
         firebase.user
             .then(user => {
+                let localStorageResult = localStorage.getItem("userEmail");
+                let email  = localStorageResult === null ? user.email : localStorageResult;
 
-                console.log(user)
-                return firebase.firestore.collection("users").where("email", "==", user.email).get();
+                return firebase.firestore.collection("users").where("email", "==", email).get();
             })
             .then(querySnapshot => {
                 querySnapshot.forEach( doc => {

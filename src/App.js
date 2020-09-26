@@ -9,6 +9,8 @@ import { Login } from "./components/login";
 import { Profile } from "./components/profile";
 import { PrivateRoute } from "./components/privateRoute";
 import { Register } from "./components/register";
+import { RegisterDoc } from "./components/registerDoc";
+import { Patients } from "./components/patients";
 
 const App = () => {
   return (
@@ -24,6 +26,12 @@ const App = () => {
           <Route exact path="/register">
             <Register />
           </Route>
+          <Route exact path="/docregister">
+            <RegisterDoc />
+          </Route>
+          <PrivateRoute exact path="/patients" >
+              <Patients />
+          </PrivateRoute>
           <HomeWrapper>
             <PrivateRoute exact path="/articles" >
               <Articles />

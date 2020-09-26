@@ -96,6 +96,7 @@ export class Firebase {
           age,
           diagnosis,
           history,
+          "isDoc" : false
         })
       })
       .then(() => {
@@ -105,6 +106,18 @@ export class Firebase {
             .put(behaviourManagement);
         }
       });
+  }
+
+  doRegisterDoc(email, password, name) {
+    return this.auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          return this.firestore.collection("users").add({
+            email,
+            name,
+            "isDoc" : true
+          })
+        })
   }
 }
 
