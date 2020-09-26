@@ -3,16 +3,15 @@ import { Redirect, Route } from "react-router-dom";
 import { FirebaseContext } from "../utils/firebase";
 
 export const PrivateRoute = ({ children, ...rest }) => {
-  const firebase = useContext(FirebaseContext)
-
-  const [user, setUser] = useState("")
+  const firebase = useContext(FirebaseContext);
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     firebase.user.then(setUser)
-  }, [])
+  }, [firebase.user])
 
   if (user === "") {
-    return <></>
+    return <></>;
   }
 
   if (user !== null) {
