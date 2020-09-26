@@ -45,10 +45,11 @@ export class Firebase {
     return this._storage;
   }
 
-  submitEntry(values) {
+  async submitEntry(values) {
+    const user = await this.user;
     return this.firestore
       .collection("entries").add({
-        user: this.auth.currentUser.email,
+        user: user.email,
         ...values,
       });
   }
