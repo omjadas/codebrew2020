@@ -1,7 +1,7 @@
 import bsCustomFileInput from "bs-custom-file-input";
 import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";

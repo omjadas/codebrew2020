@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import CalendarHeatmap from 'react-calendar-heatmap';
+import CalendarHeatmap from "react-calendar-heatmap";
 import "../styles/calendar.css";
 import { FirebaseContext } from "../utils/firebase";
 import { useHistory, Link } from "react-router-dom";
@@ -75,15 +75,15 @@ export const Calendar = () => {
           endDate={maxDay}
           classForValue={value => {
             if (!value) {
-              return 'color-empty';
+              return "color-empty";
             }
 
             if (value.count >= 6 && value.count <= 16) {
-              return 'color-scale-red';
+              return "color-scale-red";
             } else if (value.count >= 17 && value.count <= 18) {
-              return 'color-scale-amber';
+              return "color-scale-amber";
             } else if (value.count >= 19 && value.count <= 32) {
-              return 'color-scale-green';
+              return "color-scale-green";
             }
           }}
           values={days}

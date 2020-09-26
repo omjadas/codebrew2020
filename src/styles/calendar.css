@@ -1,9 +1,9 @@
 .react-calendar-heatmap-month-labels {
-    font-size: 7.5px;
+  font-size: 7.5px;
 }
 
 .headings {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .react-calendar-heatmap .color-empty { fill: #808080; }

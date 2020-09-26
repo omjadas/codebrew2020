@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import { FirebaseContext } from "../utils/firebase";
 import { Formik } from "formik";
 import { Button, Form, Modal } from "react-bootstrap";
@@ -22,7 +22,7 @@ export const Login = () => {
   const history = useHistory();
 
   const handleSubmit = ({ email, password }) => {
-    localStorage.removeItem('userEmail');
+    localStorage.removeItem("userEmail");
 
     firebase.auth.signInWithEmailAndPassword(email, password)
       .then(() => delay(150))
