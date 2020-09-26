@@ -63,7 +63,9 @@ firebase.initializeApp(config);
 
 const now = new Date();
 
-for (var d = new Date(2020, 0, 1); d <= now; d.setDate(d.getDate() + 1)) {
+let bounds = [1, 3];
+
+for (var d = new Date(2020, 7, 1); d <= now; d.setDate(d.getDate() + 1)) {
   for (const email of emails) {
     const entry = {
       user: email,
@@ -71,13 +73,22 @@ for (var d = new Date(2020, 0, 1); d <= now; d.setDate(d.getDate() + 1)) {
         environments,
         getRandomInt(1, 5)
       ).join(", "),
-      time: d,
+      time: d.toISOString().slice(0, 10),
     }
 
     for (const field of fields) {
-      entry[field] = getRandomInt(1, 6);
+      entry[field] = getRandomInt(...bounds);
     }
 
+    if (bounds[1] >= 5 && getRandomInt(0, 3) === 0) {
+      bounds = [bounds[0] - 1, bounds[1] - 1]
+    }
+
+    if (bounds[0] <= 2 && getRandomInt(0, 3) === 0) {
+      bounds = [bounds[0] + 1, bounds[1] + 1]
+    }
+
+    console.log(entry);
     firebase.firestore().collection("entries").add(entry);
   }
 }

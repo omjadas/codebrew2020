@@ -40,11 +40,10 @@ export const Graphs = (props) => {
         value={selected}
         onChange={option => setSelected(option)} />
       <h3 className="text-center">Trend Over Time</h3>
-      <XYPlot xType="time" className="m-auto" width={350} height={300}>
+      <XYPlot xType="time" className="ml-3 mr-auto" width={350} height={300}>
         <HorizontalGridLines />
         <VerticalGridLines />
         <XAxis title="X Axis" />
-        <YAxis title="Y Axis" />
         <LineSeries data={data} />
       </XYPlot>
     </>
