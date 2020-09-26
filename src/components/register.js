@@ -43,7 +43,7 @@ export const Register = () => {
         behaviourManagement
       )
       .then(() => {
-        history.push("/newsfeed");
+        history.push("/articles");
       })
       .catch(e => {
         console.error(e);

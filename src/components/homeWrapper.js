@@ -39,7 +39,7 @@ export const HomeWrapper = (props) => {
 
       <Nav justify variant="tabs" >
         <Nav.Item >
-          <Link className={`nav-link ${location.pathname.includes("newsfeed") ? "active" : ""}`} to="/newsfeed">Home</Link>
+          <Link className={`nav-link ${location.pathname.includes("articles") ? "active" : ""}`} to="/articles">Home</Link>
         </Nav.Item>
         <Nav.Item>
           <Link className={`nav-link ${location.pathname.includes("tracker") || location.pathname.includes("entry") ? "active" : ""}`} to="/tracker">Tracker</Link>
