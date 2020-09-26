@@ -2,8 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import "../styles/calendar.css";
 import { FirebaseContext } from "../utils/firebase";
+import {Graphs} from "./graphs";
 
-export const Calendar = (props) => { 
+export const Calendar = (props) => {
     const firebase = useContext(FirebaseContext);
     const [days, setDays] = useState([]);
     const [minDay, setMinDay] = useState("2020-01-01");
@@ -40,7 +41,8 @@ export const Calendar = (props) => {
 
 
     return (
-    <div class="calendar-wrapper">
+    <>
+    <div className="calendar-wrapper">
         <CalendarHeatmap
             startDate={minDay}
             endDate={maxDay}
@@ -58,6 +60,8 @@ export const Calendar = (props) => {
             horizontal={false}
         />
     </div>
-    )
-}
+    <Graphs data={days} />
+    </>
+    );
+};
 
