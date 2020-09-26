@@ -19,12 +19,12 @@ export const Graphs = (props) => {
   const data = props.data.map(d => {
     if (selected.value === "all") {
       return {
-        x: new Date(d.data.time.seconds * 1000).getTime(),
+        x: new Date(d.data.time).getTime(),
         y: d.count,
       }
     } else {
       return {
-        x: new Date(d.data.time.seconds * 1000).getTime(),
+        x: new Date(d.data.time).getTime(),
         y: d.data[selected.value],
       }
     }

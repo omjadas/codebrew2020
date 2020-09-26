@@ -23,8 +23,10 @@ export const Calendar = (props) => {
                 let maxDay = "0"
     
                 querySnapshot.forEach(doc => {
-                    let dateString = new Date(doc.data().time.seconds * 1000).toISOString().substr(0,10);
-    
+                    let dateString = doc.data().time;
+                    
+                    console.log(doc.data())
+
                     resultDays.push({
                         data: doc.data(),
                         count: doc.data().attention + doc.data().communication + doc.data().difficultBehaviour + doc.data().overallMood + doc.data().sleepQuality + doc.data().socialInteraction,
@@ -38,8 +40,12 @@ export const Calendar = (props) => {
                 setDays(resultDays)
                 setMinDay(minDay)
                 setMaxDay(maxDay)
+
+                console.log(resultDays, minDay, maxDay)
             })
         })
+
+       
     }, [] )
 
 

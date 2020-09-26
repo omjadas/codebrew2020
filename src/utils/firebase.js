@@ -50,7 +50,7 @@ export class Firebase {
     return this.firestore
       .collection("entries").add({
         user: user.email,
-        time: new Date(),
+        time: new Date().toISOString().substr(0,10),
         ...values,
       });
   }
