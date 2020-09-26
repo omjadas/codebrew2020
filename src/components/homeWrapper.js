@@ -38,9 +38,12 @@ export const HomeWrapper = (props) => {
       <TopBar isDoctor={isDoc}/>
 
       <Nav justify variant="tabs" >
-        {!isDoc && <Nav.Item >
-          <Link className={`nav-link ${location.pathname.includes("articles") ? "active" : ""}`} to="/articles">Home</Link>
-        </Nav.Item>}
+        {
+          !isDoc &&
+            <Nav.Item>
+              <Link className={`nav-link ${location.pathname.includes("articles") ? "active" : ""}`} to="/articles">Home</Link>
+            </Nav.Item>
+        }
         <Nav.Item>
           <Link className={`nav-link ${location.pathname.includes("tracker") || location.pathname.includes("entry") ? "active" : ""}`} to="/tracker">Tracker</Link>
         </Nav.Item>

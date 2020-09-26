@@ -22,11 +22,16 @@ export const TopBar = ({ isDoctor }) => {
       <Navbar bg="info">
         <Navbar.Brand href="/">Project Awesome</Navbar.Brand>
 
-        {isDoctor && <Link to="/patients" className="ml-auto">
-          <FontAwesomeIcon icon={faSearch} size="lg" />
-        </Link>}
+        <div className="ml-auto">
+          {
+            isDoctor &&
+              <Link to="/patients" className="mr-3" style={{color: "#212529"}}>
+                <FontAwesomeIcon icon={faSearch} size="lg" />
+              </Link>
+          }
 
-        <FontAwesomeIcon onClick={onSignOut} icon={faSignOutAlt} size="lg" />
+          <FontAwesomeIcon onClick={onSignOut} icon={faSignOutAlt} size="lg" />
+        </div>
       </Navbar>
     </>
   );
