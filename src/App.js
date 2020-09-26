@@ -13,7 +13,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-                <Redirect to="/home/newsfeed" />
+            <Redirect to="/newsfeed" />
           </Route>
           <Route exact path="/login">
             <Login />

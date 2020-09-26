@@ -21,7 +21,7 @@ export const Login = () => {
         return firebase.auth.signInWithEmailAndPassword(email, password)
       })
       .then(() => {
-        history.push("/home/newsfeed");
+        history.push("/newsfeed");
       })
       .catch(e => {
         console.error(e);
