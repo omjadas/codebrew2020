@@ -9,11 +9,16 @@ export const HomeWrapper = (props) => {
   const location = useLocation();
   const [isDoc, setIsDoc] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
 
   useEffect(() => {
     firebase.user
       .then(user => {
-        return firebase.firestore.collection("users").where("email", "==", user.email).get();
+        if (user !== null) {
+          return firebase.firestore.collection("users").where("email", "==", user.email).get();
+        } else {
+          return Promise.reject();
+        }
       })
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -23,14 +28,22 @@ export const HomeWrapper = (props) => {
           setLoaded(true)
         });
       })
+      .catch(e => {
+        console.error(e);
+        setSignedIn(false);
+      });
   }, [firebase.firestore, firebase.user]);
 
+  if (!signedIn) {
+    return <Redirect to="/login" />;
+  }
+
   if (!loaded) {
-    return (<></>)
+    return <></>;
   }
 
   if (location.pathname.includes("articles") && isDoc) {
-   return( <Redirect to="/patients" /> )
+    return <Redirect to="/patients" />;
   }
 
   return (
@@ -53,7 +66,6 @@ export const HomeWrapper = (props) => {
       </Nav>
 
       {props.children}
-
     </>
   );
-}
+};
