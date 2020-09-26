@@ -1,55 +1,74 @@
 import React, { useContext } from 'react';
 import { FirebaseContext } from "../utils/firebase";
 import { Formik } from "formik";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { FormikControl } from "formik-react-bootstrap";
 import '../styles/login.css';
+import { Link, useHistory } from "react-router-dom";
+import * as yup from "yup";
+
+const FormSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+});
 
 export const Login = () => {
   const firebase = useContext(FirebaseContext);
+  const history = useHistory();
 
-  function handleSubmit({ email, password }) {
-    firebase.auth.signInWithEmailAndPassword(email, password).catch(e => {
-      // Handle Errors here.
-      var errorCode = e.code;
-      var errorMessage = e.message;
-      console.error(e);
-    });
+  const handleSubmit = ({ email, password }) => {
+    firebase
+      .auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        history.push("/");
+      })
+      .catch(e => {
+        console.error(e);
+      }
+    );
 
     console.log(firebase.auth.currentUser)
   }
 
-
   return (
     <Formik
       initialValues={{
-        age: 1,
+        email: "",
+        password: "",
       }}
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+      validationSchema={FormSchema}>
       {
         ({
           isSubmitting,
           handleSubmit,
-          setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <div class="text-center form-signin">
-              <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-              <label for="inputEmail" class="sr-only">Email address</label>
+            <div className="text-center form-signin">
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
               <FormikControl
                 name="email"
                 type="email"
-                label="Email Address" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" />
+                label="Email Address"
+                id="inputEmail"
+                placeholder="Email Address" />
               <FormikControl
                 name="password"
                 type="password"
-                label="Password" class="sr-only" placeholder="Password" />
-              <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                label="Password"
+                placeholder="Password" />
+
+              <Button type="submit" variant="primary" disabled={isSubmitting}>Sign In</Button>
 
               <br />
               <p>or</p>
 
-              <button class="btn btn-lg btn-primary btn-block" onClick={() => window.location.href = '/register'}>Register</button>
+              <Link to="/register">
+                <Button>
+                  Register
+                </Button>
+              </Link>
             </div>
           </Form>
         )

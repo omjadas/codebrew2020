@@ -41,7 +41,14 @@ export class Firebase {
       diagnosis,
       history,
     });
-    const file = this.storage.child(`${email}-behaviour`).put(behaviourManagement);
+
+    let file;
+
+    if (behaviourManagement !== undefined) {
+      file = this.storage.child(`${email}-behaviour`).put(behaviourManagement);
+    } else {
+      file = Promise.resolve();
+    }
 
     return Promise.all([create, store, file]);
   }

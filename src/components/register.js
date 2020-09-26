@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
 import React, { useContext, useEffect } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { FirebaseContext } from "../utils/firebase";
 
@@ -16,6 +17,7 @@ const FormSchema = yup.object().shape({
 
 export const Register = () => {
   const firebase = useContext(FirebaseContext);
+  const history = useHistory();
 
   useEffect(() => {
     bsCustomFileInput.init()
@@ -28,17 +30,24 @@ export const Register = () => {
     age,
     diagnosis,
     behaviourManagement,
-    ...history
+    ...rest
   }) => {
-    firebase.doRegister(
-      email,
-      password,
-      name,
-      age,
-      diagnosis,
-      history,
-      behaviourManagement
-    );
+    firebase
+      .doRegister(
+        email,
+        password,
+        name,
+        age,
+        diagnosis,
+        rest,
+        behaviourManagement
+      )
+      .then(() => {
+        history.push("/");
+      })
+      .catch(e => {
+        console.error(e);
+      });
   };
 
   return (
