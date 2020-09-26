@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { FormikControl } from "formik-react-bootstrap";
 import React, { useContext, useEffect } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { FirebaseContext } from "../utils/firebase";
 
@@ -64,6 +64,7 @@ export const Register = () => {
           setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
+            <Modal.Header>Register</Modal.Header>
             <Modal.Body>
               <FormikControl
                 name="email"
@@ -225,6 +226,9 @@ export const Register = () => {
               </Card>
             </Modal.Body>
             <Modal.Footer>
+              <Link className="mr-auto" to="/login">
+                <Button>Sign In</Button>
+              </Link>
               <Button
                 type="submit"
                 variant="success"

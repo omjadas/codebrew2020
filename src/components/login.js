@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { FirebaseContext } from "../utils/firebase";
 import { Formik } from "formik";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { FormikControl } from "formik-react-bootstrap";
-import '../styles/login.css';
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 
@@ -45,8 +44,8 @@ export const Login = () => {
           handleSubmit,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <div className="text-center form-signin">
-              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <Modal.Header>Sign In</Modal.Header>
+            <Modal.Body>
               <FormikControl
                 name="email"
                 type="email"
@@ -58,18 +57,15 @@ export const Login = () => {
                 type="password"
                 label="Password"
                 placeholder="Password" />
-
-              <Button type="submit" variant="primary" disabled={isSubmitting}>Sign In</Button>
-
-              <br />
-              <p>or</p>
-
-              <Link to="/register">
+            </Modal.Body>
+            <Modal.Footer>
+              <Link className="mr-auto" to="/register">
                 <Button>
                   Register
                 </Button>
               </Link>
-            </div>
+              <Button type="submit" variant="success" disabled={isSubmitting}>Sign In</Button>
+            </Modal.Footer>
           </Form>
         )
       }
