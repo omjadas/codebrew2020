@@ -33,7 +33,7 @@ export const Patients = () => {
 
       <ListGroup>
         {patients.map(p => (
-          <Patient name={p.name} email={p.email} />
+          <Patient key={p.email} name={p.name} email={p.email} />
         ))}
       </ListGroup>
     </>
