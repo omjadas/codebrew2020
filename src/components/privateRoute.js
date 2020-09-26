@@ -15,6 +15,7 @@ export const PrivateRoute = ({ children, ...rest }) => {
   }
 
   if (user !== null) {
+    console.log(user)
     return (
       <Route {...rest}>
         {children}
