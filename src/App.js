@@ -4,7 +4,7 @@ import { Calendar } from './components/calendar';
 import { HomeWrapper } from "./components/homeWrapper";
 import { Login } from './components/login';
 import { PrivateRoute } from "./components/privateRoute";
-import { Questionnaire } from "./components/questionnaire";
+import { Entry } from "./components/entry";
 import { Register } from './components/register';
 
 const App = () => {
@@ -31,8 +31,8 @@ const App = () => {
             <PrivateRoute exact path="/appointments" >
               <Login />
             </PrivateRoute>
-            <PrivateRoute exact path="/questions">
-              <Questionnaire />
+            <PrivateRoute exact path="/entry">
+              <Entry />
             </PrivateRoute>
           </HomeWrapper>
         </Switch>

@@ -18,7 +18,7 @@ const FormSchema = yup.object().shape({
   otherComments: yup.string(),
 });
 
-export const Questionnaire = () => {
+export const Entry = () => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
 
@@ -46,7 +46,7 @@ export const Questionnaire = () => {
           setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <Modal.Header>Questionnaire</Modal.Header>
+            <Modal.Header>Entry</Modal.Header>
             <Modal.Body>
               <FormikControl
                 as="textarea"
