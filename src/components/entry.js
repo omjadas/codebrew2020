@@ -5,7 +5,9 @@ import * as yup from "yup";
 import { Button, Form, Modal } from "react-bootstrap";
 import { FirebaseContext } from "../utils/firebase";
 import { Question } from "./question";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 
 const FormSchema = yup.object().shape({
   environmentalInfo: yup.string().required("This is a required field."),
@@ -18,9 +20,13 @@ const FormSchema = yup.object().shape({
   otherComments: yup.string(),
 });
 
-export const Entry = () => {
+export const Entry = (props) => {
   const firebase = useContext(FirebaseContext);
   const history = useHistory();
+  const location = useLocation();
+
+  const date = location.hash.substring(1);
+  console.log(date);
 
   const onSubmit = (values) => {
     firebase.submitEntry(values)
@@ -46,7 +52,9 @@ export const Entry = () => {
           setFieldValue,
         }) => (
           <Form onSubmit={handleSubmit}>
-            <Modal.Header>Entry</Modal.Header>
+            <Modal.Header>
+              <FontAwesomeIcon className="mr-auto" icon={faLongArrowAltLeft} size="lg" onClick={ () => history.goBack() }/>
+            </Modal.Header>
             <Modal.Body>
               <FormikControl
                 as="textarea"

@@ -43,7 +43,7 @@ export const HomeWrapper = (props) => {
           <Link className={`nav-link ${location.pathname.includes("newsfeed") ? "active" : ""}`} to="/newsfeed">Home</Link>
         </Nav.Item>
         <Nav.Item>
-          <Link className={`nav-link ${location.pathname.includes("tracker") ? "active" : ""}`} to="/tracker">Cal</Link>
+          <Link className={`nav-link ${location.pathname.includes("tracker") || location.pathname.includes("entry") ? "active" : ""}`} to="/tracker">Tracker</Link>
         </Nav.Item>
         <Nav.Item>
           <Link className={`nav-link ${location.pathname.includes("appointments") ? "active" : ""}`} to="/appointments">Appointments</Link>

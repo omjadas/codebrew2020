@@ -2,12 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import "../styles/calendar.css";
 import { FirebaseContext } from "../utils/firebase";
+import { useHistory } from "react-router-dom";
 
 export const Calendar = (props) => { 
     const firebase = useContext(FirebaseContext);
     const [days, setDays] = useState([]);
     const [minDay, setMinDay] = useState("2020-01-01");
     const [maxDay, setMaxDay] = useState("2020-01-01");
+
+    const history = useHistory();
 
     useEffect( () => {
         firebase.user.then(user => {
@@ -48,14 +51,18 @@ export const Calendar = (props) => {
                 if (!value) {
                   return 'color-empty';
                 }
-                return `color-scale-${value.count}`;
 
-                if (value >= 6 && value <= 14) {
-                    return 'colour-scale-red';
-                } else if (value >= 15 && value <= 23) {}
+                if (value.count >= 6 && value.count <= 16) {
+                    return 'color-scale-red';
+                } else if (value.count >= 17 && value.count <= 18) {
+                    return 'color-scale-amber'
+                } else if (value.count >= 19 && value.count <= 32) {
+                    return 'color-scale-green'
+                }
               }}
             values={days}
             horizontal={false}
+            onClick={value => history.push(`/entry#${value.date}`)}
         />
     </div>
     )
