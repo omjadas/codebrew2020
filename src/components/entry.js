@@ -38,8 +38,7 @@ export const Entry = () => {
       })
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.data())
-          setData(doc.data())
+          setData(doc.data());
         });
       })
   }, [firebase.firestore, firebase.user, date]);

@@ -17,7 +17,6 @@ export const Profile = () => {
       })
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          console.log(doc.data())
           setUserData(doc.data());
         })
       })

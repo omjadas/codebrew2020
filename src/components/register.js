@@ -51,7 +51,7 @@ export const Register = ({ profileData }) => {
         behaviourManagement
       )
       .then(() => {
-        history.push("/articles");
+        history.push("/splash");
       })
       .catch(e => {
         console.error(e);

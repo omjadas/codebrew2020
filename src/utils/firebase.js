@@ -70,9 +70,11 @@ export class Firebase {
   async submitEntry(date, values) {
     const user = await this.user;
 
-    console.log(user.email)
-
-    const querySnapshot = await this.firestore.collection("entries").where("time", "==", date).where("user", "==", user.email).get()
+    const querySnapshot = await this.firestore
+      .collection("entries")
+      .where("time", "==", date)
+      .where("user", "==", user.email)
+      .get();
     querySnapshot.forEach((doc)=> {
       doc.ref.delete();
     })

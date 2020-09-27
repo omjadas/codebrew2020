@@ -4,13 +4,8 @@ import React, { useContext } from "react";
 import { Button, Dropdown, DropdownButton, Form, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
+import { delay } from "../utils/delay";
 import { FirebaseContext } from "../utils/firebase";
-
-function delay(t, v) {
-  return new Promise(resolve => {
-      setTimeout(resolve.bind(null, v), t)
-  });
-}
 
 const FormSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -27,7 +22,7 @@ export const Login = () => {
     firebase.auth.signInWithEmailAndPassword(email, password)
       .then(() => delay(150))
       .then(() => {
-        history.push("/articles");
+        history.push("/splash");
       })
       .catch(e => {
         console.error(e);
@@ -49,7 +44,6 @@ export const Login = () => {
         }) => (
           <Form onSubmit={handleSubmit}>
             <Modal.Header>Project Awesome</Modal.Header>
-            <img src='/ProjectAwesome.png'></img>
             <Modal.Body>
               <FormikControl
                 name="email"

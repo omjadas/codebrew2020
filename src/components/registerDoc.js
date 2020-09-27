@@ -26,7 +26,7 @@ export const RegisterDoc = () => {
         name
       )
       .then(() => {
-        history.push("/patients");
+        history.push("/splash");
       })
       .catch(e => {
         console.error(e);

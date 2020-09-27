@@ -89,8 +89,7 @@ export const Calendar = () => {
           values={days}
           horizontal={false}
           onClick={value => {
-            console.log(value)
-            history.push(`/entry#${value.date}`)
+            history.push(`/entry#${value.date}`);
           }}
         />
       </div>
