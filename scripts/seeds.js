@@ -2,6 +2,50 @@
 
 const firebase = require("firebase");
 
+const emails = [
+  "omja.das@gmail.com",
+  "vishal@hotmail.com",
+];
+
+const days = [
+  "2020-09-27",
+]
+
+const environments = [
+  "school",
+  "cinema",
+  "basketball",
+  "soccer",
+  "tutoring",
+  "drum lessons",
+  "band",
+  "birthday party",
+  "beach",
+  "park",
+  "shopping centre",
+  "hair dresser",
+  "library",
+];
+
+const fields = [
+  "attention",
+  "communication",
+  "difficultBehaviour",
+  "overallMood",
+  "sleepQuality",
+  "socialInteraction",
+];
+
+const config ={
+  apiKey: "AIzaSyDlYaYomTt3oU8fvlL8fBDt81gAzE4dLy0",
+  authDomain: "codebrew-2020-8141c.firebaseapp.com",
+  databaseURL: "https://codebrew-2020-8141c.firebaseio.com",
+  projectId: "codebrew-2020-8141c",
+  storageBucket: "codebrew-2020-8141c.appspot.com",
+  messagingSenderId: "602894421608",
+  appId: "1:602894421608:web:f9a8d137e066808cf8f5dd",
+};
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -54,56 +98,25 @@ function seedData() {
 }
 
 function deleteDay() {
-  firebase.firestore().collection("entries").where("time", "==", "2020-09-26").where("user", "==", "vishal@hotmail.com").get().then(
-    (querySnapshot) => {
-      querySnapshot.forEach((doc)=> {
-        doc.ref.delete();
-      })
+  for (const email of emails) {
+    for (const day of days) {
+      firebase.firestore()
+        .collection("entries")
+        .where("time", "==", day)
+        .where("user", "==", email)
+        .get()
+        .then(
+          (querySnapshot) => {
+            querySnapshot.forEach((doc)=> {
+              doc.ref.delete();
+            })
+          }
+        )
     }
-  )
+  }
 }
-
-const emails = [
-  "omja.das@gmail.com",
-  "vishal@hotmail.com",
-];
-
-const environments = [
-  "school",
-  "cinema",
-  "basketball",
-  "soccer",
-  "tutoring",
-  "drum lessons",
-  "band",
-  "birthday party",
-  "beach",
-  "park",
-  "shopping centre",
-  "hair dresser",
-  "library",
-];
-
-const fields = [
-  "attention",
-  "communication",
-  "difficultBehaviour",
-  "overallMood",
-  "sleepQuality",
-  "socialInteraction",
-];
-
-const config ={
-  apiKey: "AIzaSyDlYaYomTt3oU8fvlL8fBDt81gAzE4dLy0",
-  authDomain: "codebrew-2020-8141c.firebaseapp.com",
-  databaseURL: "https://codebrew-2020-8141c.firebaseio.com",
-  projectId: "codebrew-2020-8141c",
-  storageBucket: "codebrew-2020-8141c.appspot.com",
-  messagingSenderId: "602894421608",
-  appId: "1:602894421608:web:f9a8d137e066808cf8f5dd",
-};
 
 firebase.initializeApp(config);
 
-
+seedData();
 deleteDay();
